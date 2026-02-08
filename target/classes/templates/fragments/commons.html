@@ -23,7 +23,7 @@
             <li>
                 <a th:href="@{/register}">Register</a>
             </li>
-            <li>
+            <li th:unless="${user}">
                 <a th:href="@{/logout}">Logout</a>
             </li>
         </div>

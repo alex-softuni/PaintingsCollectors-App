@@ -1,7 +1,10 @@
 package com.paintingscollectors.web;
 
+import com.paintingscollectors.user.model.User;
 import com.paintingscollectors.user.service.UserService;
+import com.paintingscollectors.web.dto.LoginRequest;
 import com.paintingscollectors.web.dto.RegisterRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,18 +38,47 @@ public class IndexController {
     }
 
     @PostMapping("/register")
-    public ModelAndView registerUser(@Valid RegisterRequest registerRequest, BindingResult bindingResult) {
+    public String registerUser(@Valid RegisterRequest registerRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("/register");
+            return "register";
         }
 
         userService.registerUser(registerRequest);
 
-        return new ModelAndView("redirect:/login");
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
     public ModelAndView getLoginPage() {
-        return new ModelAndView("login");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("/login");
+        mav.addObject("loginRequest", new LoginRequest());
+        return mav;
     }
+
+    @PostMapping("/login")
+    public String processLoginRequest(
+            @Valid LoginRequest loginRequest,
+            BindingResult bindingResult,
+            HttpSession session
+    ) {
+        if (bindingResult.hasErrors()) {
+            return "login";
+        }
+
+        User user = userService.loginUser(loginRequest);
+
+        session.setAttribute("user_id", user);
+
+        return "redirect:/home";
+    }
+
+    @GetMapping("/home")
+    public ModelAndView getHomePage() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("home");
+        return mav;
+    }
+
+
 }
