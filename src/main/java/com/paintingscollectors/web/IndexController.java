@@ -1,5 +1,7 @@
 package com.paintingscollectors.web;
 
+import com.paintingscollectors.exception.UserAlreadyExists;
+import com.paintingscollectors.painting.model.Painting;
 import com.paintingscollectors.user.model.User;
 import com.paintingscollectors.user.service.UserService;
 import com.paintingscollectors.web.dto.LoginRequest;
@@ -12,6 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class IndexController {
@@ -43,7 +48,12 @@ public class IndexController {
             return "register";
         }
 
-        userService.registerUser(registerRequest);
+        try {
+            userService.registerUser(registerRequest);
+        } catch (UserAlreadyExists e) {
+            bindingResult.rejectValue("username", "UserAlreadyExists", e.getMessage());
+            return "register";
+        }
 
         return "redirect:/login";
     }
@@ -51,7 +61,7 @@ public class IndexController {
     @GetMapping("/login")
     public ModelAndView getLoginPage() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/login");
+        mav.setViewName("login");
         mav.addObject("loginRequest", new LoginRequest());
         return mav;
     }
@@ -68,15 +78,24 @@ public class IndexController {
 
         User user = userService.loginUser(loginRequest);
 
-        session.setAttribute("user_id", user);
+        session.setAttribute("user_id", user.getId());
 
         return "redirect:/home";
     }
 
     @GetMapping("/home")
-    public ModelAndView getHomePage() {
+    public ModelAndView getHomePage(HttpSession session) {
+
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getUserById(userId);
+
+        List<Painting> allPaintings = userService.getAllPaintings();
         ModelAndView mav = new ModelAndView();
         mav.setViewName("home");
+        mav.addObject("user", user);
+        mav.addObject("allPaintings", allPaintings);
+
+
         return mav;
     }
 
