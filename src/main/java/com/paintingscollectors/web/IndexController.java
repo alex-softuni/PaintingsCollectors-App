@@ -99,5 +99,12 @@ public class IndexController {
         return mav;
     }
 
+    @GetMapping("/logout")
+    public String logOutUser(HttpSession session) {
+
+        session.invalidate();
+        return "redirect:/";
+    }
+
 
 }
