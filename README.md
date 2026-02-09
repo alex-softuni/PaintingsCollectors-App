@@ -1,3 +1,9 @@
+Tech Stack:
+Spring Boot
+Thymeleaf
+MySQL
+Maven
+Front-end part - HTML&CSS, BOOTSTRAP was provided by a skeleton by my university everything else was created by me :)
 PROJECT SDK: Microsoft OpenJDK 17.0.16
 
 How to setup and run the project:
