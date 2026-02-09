@@ -8,7 +8,9 @@ import com.paintingscollectors.user.model.User;
 import com.paintingscollectors.web.dto.AddPaintingRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +27,12 @@ public class PaintingService {
     }
 
     public List<Painting> findAllPaintings() {
-        return paintingRepository.findAll();
+        List<Painting> allPaintings = paintingRepository.findAll();
+
+        allPaintings.sort(Comparator.comparing(Painting::getVotes).reversed()
+                .thenComparing(Painting::getName));
+
+        return allPaintings;
     }
 
     public void addNewPainting(AddPaintingRequest addPaintingRequest, User user) {
@@ -60,5 +67,12 @@ public class PaintingService {
                 .build();
 
         favouritePaintingRepository.save(favoritePaintings);
+    }
+
+    public void increaseVote(UUID id, User user) {
+        Painting painting = paintingRepository.findById(id).orElseThrow(() -> new RuntimeException("Painting with id " + id + " not found"));
+        painting.setVotes(painting.getVotes() + 1);
+
+        paintingRepository.save(painting);
     }
 }

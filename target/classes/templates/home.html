@@ -86,7 +86,7 @@
                                     </form>
                                 </div>
                                 <div class="rate">
-                                    <form action="" method="">
+                                    <form th:action="@{'/paintings/votes/' + ${otherPainting.id}}" th:method="POST">
                                         <button class="btn-primary btn">Vote</button>
                                     </form>
                                 </div>
@@ -102,13 +102,9 @@
                 <div class="home-fields" style="height: 21vh; overflow: auto">
                     <h3 class="my-paintings">Most Rated Paintings</h3>
                     <div class="most-rated">
-                        <div class="rated-record">
-                            <p>Paining: <span>Mona Lisa</span></p>
-                            <p>Votes: <span>2</span></p>
-                        </div>
-                        <div class="rated-record">
-                            <p>Paining: <span>Spring </span></p>
-                            <p>Votes: <span>0</span></p>
+                        <div th:each="painting : ${allPaintings}" class="rated-record">
+                            <p>Painting: <span th:text="${painting.name}"></span></p>
+                            <p>Votes: <span th:text="${painting.votes}"></span></p>
                         </div>
                     </div>
                 </div>

@@ -60,7 +60,7 @@ public class PaintingController {
         UUID userId = (UUID) httpSession.getAttribute("user_id");
         User user = userService.getUserById(userId);
 
-        paintingService.addPaintingToFavourites(id,user);
+        paintingService.addPaintingToFavourites(id, user);
 
         return "redirect:/home";
     }
@@ -76,6 +76,17 @@ public class PaintingController {
     public String deleteFavPainting(@PathVariable UUID id) {
 
         paintingService.deleteFavouriteById(id);
+        return "redirect:/home";
+    }
+
+    @PostMapping("/votes/{id}")
+    public String increaseVotes(@PathVariable UUID id, HttpSession httpSession) {
+
+        UUID userId = (UUID) httpSession.getAttribute("user_id");
+        User user = userService.getUserById(userId);
+
+        paintingService.increaseVote(id, user);
+
         return "redirect:/home";
     }
 }
