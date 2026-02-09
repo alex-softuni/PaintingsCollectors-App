@@ -1,23 +1,81 @@
-Here I am providing the requirements given from my university for that project.
-Functional Requirements
-The Functionality Requirements describe the functionality that the application must support.
-The application should provide Guest (not logged in) users with the functionality to log in, register and view the Index page.
-The application should provide Users (logged in) with the functionality to log out, add a new painting (Add painting page), view all paintings (Home page) and add a painting from Other Paintings to his Favorite Paintings. The logged in Users can rate the paintings of other users (Other Paintings).
-Painting Collectors Application in the navbar should redirect to the appropriate URL depending on that if the user is logged in.
-The application should provide functionality for adding paintings with following styles - IMPRESSIONISM, ABSTRACT, EXPRESSIONISM, SURREALISM or REALISM.
-The paintings should be separated into four different sections according to their ownership and rate.
-At the top, above all sections in a banner, the username of the logged in user should be displayed.
-My Paintings section
-This section displays added paintings by the currently logged in User. When the User adds a new painting, it should appear here. By the "Remove" button in the My Paintings section, the owner of the painting can remove it from Database.
-Other Paintings section
-This section shows other paintings from all other users who use the app.
-When the user clicks on the "Favorite" button of some painting in Other Paintings section, he adds the painting to his Favorite Paintings. You should not delete this painting from DB. The painting should be added to the My Favorites collection with paintings of the currently logged-in User. Added painting should appear in the My Favorites section of the User.
-Rate the paintings of other users - NOT REQUIRED IT IS A BONUS!
-User can rate the paintings of other users by clicking on the "Vote" button. When the User clicks the button, he rates the given painting by adding 1 vote for it. The User can vote for every painting except his own unlimited number of times and this step cannot be undone.
-My Favorites section
-In this section, the favorite paintings of currently logged in User are shown.
-Removing a Painting from the My Favorites section - NOT REQUIRED IT IS A BONUS!
-The painting can be removed from the My Favorites section by clicking the "X" button.
-Most Rated Paintings section - NOT REQUIRED IT IS A BONUS!
-Аll uploaded pictures with the corresponding number of votes should be displayed in this section, sorted in descending order according to the number of votes. If the count of votes of paintings is equal, order them by the name of the painting ascending. 
-The application should store its data in a MySQL database.
+PROJECT SDK: Microsoft OpenJDK 17.0.16
+
+How to setup and run the project:
+
+1.Clone repository or download .zip file
+
+2.Extract the file to your desired destination
+
+3.Open with IDE of your choice
+
+4. Go to src/main/resources and open application.yaml
+
+5. Adjust the credentials to your database setup (username,password,port):
+   
+password: '1234'
+
+username: 'root'
+
+url: jdbc:mysql://localhost:3306/paintings_collectors?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+
+6.Project can be started from Application.java 
+
+All working endpoints are:
+
+IndexController:
+
+"/" - index page
+
+"/register" - register page;
+
+"/login" - login page - creates user session if login is 200 OK;
+
+"/home" - home page;
+
+"/logout" - logs out current user in session invalidates and redirects to index page;
+
+PaintingController:
+
+"/paintings/add-new" - add new painting page;
+
+"/paintings/make-favourite/{id}" - Adds a painting to favourites by painting id;
+
+"/delete/{id} - deletes painting from MyPaintings section by id;
+
+"/delete-favourite/{id} - deletes painting from MyFavouritesPaintings section by id;
+
+Functional Requirements for Painting Collectors Application:
+
+1. User Roles & Access:
+
+Guest (not logged in): Can view Index page, register, and log in.
+
+User (logged in): Can log out, add new paintings, view all paintings, add others paintings to favorites, and optionally rate others paintings.
+
+2. Navigation & UI:
+
+Navbar link "Painting Collectors Application" redirects based on login status.
+
+Logged-in username displayed in a top banner.
+
+3. Painting Management:
+   
+Paintings can be added with styles: IMPRESSIONISM, ABSTRACT, EXPRESSIONISM, SURREALISM, REALISM.
+
+Paintings are displayed in sections:
+
+My Paintings: Paintings added by the user; can remove them.
+
+Other Paintings: Paintings by other users; can mark as favorite.
+
+My Favorites: Favorite paintings of the logged-in user; removal is optional.
+
+Most Rated (optional): Paintings sorted by votes, then name if tied.
+
+4. Voting (optional/bonus):
+   
+Users can vote for other users’ paintings multiple times, cannot vote on their own.
+
+5. Data Storage:
+   
+All data stored in a MySQL database.
