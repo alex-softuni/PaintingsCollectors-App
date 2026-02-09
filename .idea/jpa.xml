@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="PersistenceUnitSettings">
-    <persistence-units>
-      <persistence-unit moduleName="PaintingsCollectors-App" name="PaintingsCollectors-App" framework="JPA" ormUnit="PaintingsCollectors-App:PaintingsCollectors-App" defaultDataSourceId="206c818d-9795-4890-b051-e0a379b27df0" />
-    </persistence-units>
-  </component>
-</project>
