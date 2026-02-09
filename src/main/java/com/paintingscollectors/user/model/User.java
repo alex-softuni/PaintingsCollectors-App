@@ -27,9 +27,9 @@ public class User {
     private String password;
     @Column(unique = true, nullable = false)
     private String email;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     private List<Painting> paintings;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     private List<FavoritePaintings> favoritePaintings;
 
 }

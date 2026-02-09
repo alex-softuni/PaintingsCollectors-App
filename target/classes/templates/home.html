@@ -71,7 +71,7 @@
                 <div class="home-fields" style="height: 58vh; overflow: auto">
                     <h3 class="my-paintings">Other Paintings</h3>
                     <ul class="list-group list-group-vertical text-dark" th:each="otherPainting : ${allPaintings}">
-                        <li th:if="${otherPainting.owner != user.username}">
+                        <li th:if="${otherPainting.owner.username != user.username}">
                             <div class="my-paintings-first-row">
                                 <div class="img1">
                                     <img th:src="${otherPainting.URL}" width="75px" height="75" style="padding-top: 0.3em; padding-left: 0.3em; margin-top: 2.3em">
