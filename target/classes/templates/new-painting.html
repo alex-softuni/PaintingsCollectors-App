@@ -41,7 +41,7 @@
             <select class="browser-default custom-select" id="style" name="style">
                 <option  th:each="style : ${T(com.paintingscollectors.painting.model.Style).values()}" th:value="${style}" th:text="${style}" ></option>
             </select>
-            <small class="danger" style="font-size: 15px">Error Here</small>
+            <small th:if="${#fields.hasErrors('style')}" th:errors="*{style}" class="danger" style="font-size: 15px">Error Here</small>
         </div>
 
         <div class="button-holder d-flex justify-content-center">

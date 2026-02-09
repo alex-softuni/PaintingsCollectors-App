@@ -31,7 +31,7 @@
                                 <td th:text="${painting.author}"></td>
                                 <td th:text="${painting.style}"></td>
                                 <td style="width: 15%">
-                                    <form action="" method="">
+                                    <form th:action="@{'/paintings/delete/' + ${painting.id}}" th:method="DELETE">
                                         <button class="btn-danger btn">Delete</button>
                                     </form>
                                 </td>
@@ -56,7 +56,7 @@
                                 <td th:text="${favPainting.author}"></td>
                                 <td th:text="${favPainting.addedAt}"></td>
                                 <td>
-                                    <form action="" method="">
+                                    <form th:action="@{'/paintings/delete-favourite/' + ${favPainting.id}}" th:method="DELETE">
                                         <button class="btn-danger btn">X</button>
                                     </form>
                                 </td>
@@ -81,7 +81,7 @@
                             </div>
                             <div class="buttons-info">
                                 <div class="favorite">
-                                    <form action="" method="">
+                                    <form th:action="@{'/paintings/make-favourite/' + ${otherPainting.id}}" th:method="POST">
                                         <button class="btn-info btn">Favourite</button>
                                     </form>
                                 </div>
