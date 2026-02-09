@@ -1,3 +1,32 @@
+PROJECT SDK: Microsoft OpenJDK 17.0.16
+
+How to setup and run the project:
+1.Clone repository or download .zip file
+2.Extract the file to your desired destination
+3.Open with IDE of your choice
+4. Go to src/main/resources and open application.yaml
+5. Adjust the credentials to your database setup (username,password,port):
+password: '1234'
+username: 'root'
+url: jdbc:mysql://localhost:3306/paintings_collectors?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+6.Project can be started from Application.java 
+
+All working endpoints are:
+
+IndexController:
+"/" - index page
+"/register" - register page;
+"/login" - login page - creates user session if login is 200 OK;
+"/home" - home page;
+"/logout" - logs out current user in session invalidates and redirects to index page;
+
+PaintingController:
+"/paintings/add-new" - add new painting page;
+"/paintings/make-favourite/{id}" - Adds a painting to favourites by painting id;
+"/delete/{id} - deletes painting from MyPaintings section by id;
+"/delete-favourite/{id} - deletes painting from MyFavouritesPaintings section by id;
+
+
 Functional Requirements for Painting Collectors Application:
 
 1. User Roles & Access:
